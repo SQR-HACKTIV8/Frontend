@@ -1,16 +1,28 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../assets/assests";
 
+export default function Home({ navigation }) {
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <Text>HELLO</Text>
 
-export default function Home(){
-    return (
-        <SafeAreaProvider>
-            <SafeAreaView>
-                <Text>
-                    HELLO
-                </Text>
-            </SafeAreaView>
-        </SafeAreaProvider>
-    )
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Login")}
+          style={{
+            backgroundColor: colors.COLOR_PRIMARY,
+            marginTop: 50,
+            borderRadius: 18,
+            paddingVertical: 18,
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>Let's Go</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
 }
