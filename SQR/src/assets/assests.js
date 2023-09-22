@@ -36,6 +36,46 @@ export const recommdedImage = [
     weight: 2
 
   },
+  {
+    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    title: "ini kambing beneran",
+    description: "kambing berkualitas",
+    price: 100000,
+    weight: 2
+
+  },
+  {
+    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    title: "ini kambing beneran",
+    description: "kambing berkualitas",
+    price: 100000,
+    weight: 2
+
+  },
+  {
+    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    title: "ini kambing beneran",
+    description: "kambing berkualitas",
+    price: 100000,
+    weight: 2
+
+  },
+  {
+    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    title: "ini kambing beneran",
+    description: "kambing berkualitas",
+    price: 100000,
+    weight: 2
+
+  },
+  {
+    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    title: "ini kambing beneran",
+    description: "kambing berkualitas",
+    price: 100000,
+    weight: 2
+
+  },
 ];
 
 export const qurbanType = [
