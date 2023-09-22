@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splashhh.png",
+      "image": "https://i.ibb.co/nwp5jr0/logo-tanpa-text.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
