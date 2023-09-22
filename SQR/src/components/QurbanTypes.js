@@ -1,13 +1,27 @@
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { qurbanType } from "../assets/assests";
+import { useNavigation } from "@react-navigation/native";
 
 export default function QurbanType() {
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: "row" }}>
-          <View style={styles.cardContainer}>
+          <Pressable
+            style={styles.cardContainer}
+            onPress={() =>
+              navigation.navigate("ProductList", { category: "Kambing" })
+            }
+          >
             <Image
               source={{
                 uri: `https://i.ibb.co/ydSDhJd/484-4843725-gambar-kepala-kambing-kartun-hd-png-download-removebg-preview.png`,
@@ -15,8 +29,13 @@ export default function QurbanType() {
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>KAMBING</Text>
-          </View>
-          <View style={styles.cardContainer}>
+          </Pressable>
+          <Pressable
+            style={styles.cardContainer}
+            onPress={() =>
+              navigation.navigate("ProductList", { category: "Sapi" })
+            }
+          >
             <Image
               source={{
                 uri: `https://i.ibb.co/ssZZ2M3/pngtree-big-black-bangs-black-and-white-cow-head-png-image-7163573-removebg-preview.png`,
@@ -24,7 +43,7 @@ export default function QurbanType() {
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>SAPI</Text>
-          </View>
+          </Pressable>
         </View>
       </ScrollView>
     </View>
@@ -42,12 +61,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     alignItems: "center",
-    
   },
   cardImage: {
     width: 80,
     height: 80,
-    borderRadius: 50
+    borderRadius: 50,
   },
   cardText: {
     flex: 1,
