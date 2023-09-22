@@ -13,79 +13,88 @@ export const bannerImage = [
 
 export const recommdedImage = [
   {
-    imageUrl:"https://baznasjombang.id/wp-content/uploads/2021/06/Kambing_Bejo_Rejoyo_ngerimbi_BAZNASJBG_2.jpeg",
+    imageUrl:
+      "https://baznasjombang.id/wp-content/uploads/2021/06/Kambing_Bejo_Rejoyo_ngerimbi_BAZNASJBG_2.jpeg",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 1,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAyKX-YgXNJK_fChJq1ZhzVtipb8oI17T-3lNQgCT-4i33R6-RJoByzAkSk6gT4xt4kNg&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAyKX-YgXNJK_fChJq1ZhzVtipb8oI17T-3lNQgCT-4i33R6-RJoByzAkSk6gT4xt4kNg&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 2,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 3,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 4,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 5,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 6,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 7,
   },
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     title: "ini kambing beneran",
     description: "kambing berkualitas",
     price: 100000,
-    weight: 2
-
+    weight: 2,
+    id: 8,
   },
 ];
 
 export const qurbanType = [
   {
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
-    name: "ini kambing beneran",
-
-  },{
-    imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
     name: "ini kambing beneran",
   },
-]
-
+  {
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfFkJmDKwufhN_cLR9UjZON-PdB9pOFngrL9CXqQ6zOZ_N5aGXZJjkLkTemWRIQQmFWLY&usqp=CAU",
+    name: "ini kambing beneran",
+  },
+];
