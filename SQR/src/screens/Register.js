@@ -2,7 +2,7 @@ import { Text, View, Image, TextInput, TouchableOpacity, Animated, Easing } from
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.COLOR_PRIMARY }}>
       <SafeAreaProvider>
@@ -38,9 +38,9 @@ export default function LoginScreen({ navigation }) {
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: 20 }}>
           <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}>
-            create an account ?{" "}
-            <Text onPress={() => navigation.navigate("Register")} style={{ color: colors.COLOR_PRIMARY }}>
-              Sing up
+            already have an account ?{" "}
+            <Text onPress={() => navigation.navigate("Login")} style={{ color: colors.COLOR_PRIMARY }}>
+              Login
             </Text>
           </Text>
         </View>
