@@ -11,6 +11,7 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
 import { recommdedImage } from "../assets/assests";
+import CardList from "../components/CardList";
 
 export default function ProductList({ navigation, route }) {
   const { category } = route.params;
@@ -43,31 +44,7 @@ export default function ProductList({ navigation, route }) {
           </Pressable>
         </View>
 
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-          <View style={styles.cardRow}>
-            {recommdedImage.map((item, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.cardContainer,
-                  { width: 180, margin: 5 }
-                ]}
-              >
-                <Image
-                  source={{ uri: item.imageUrl }}
-                  style={styles.bannerHomeLarge}
-                />
-                <Text style={styles.cardText}>{item.title}</Text>
-                <Text style={styles.descriptionText} numberOfLines={1}>
-                  {item.description}
-                </Text>
-                <Text style={styles.cardText}>
-                  {item.price}/ {item.weight} KG
-                </Text>
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+          <CardList/>
       </SafeAreaView>
     </SafeAreaProvider>
   );
