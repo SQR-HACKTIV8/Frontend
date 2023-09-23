@@ -1,26 +1,19 @@
 import React from "react";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Pressable, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
 import { colors } from "../assets/assests";
 
-export default function WelcomeScreen({navigation}) {
+export default function WelcomeScreen({ navigation }) {
   return (
     <View style={{ backgroundColor: colors.COLOR_PRIMARY, flex: 1 }}>
-      <SafeAreaProvider style={{alignItems:"center"}}>
-        <SafeAreaView style={{ flexDirection: "row", marginHorizontal: 16, }}>
-        <Image
+      <SafeAreaProvider style={{ alignItems: "center" }}>
+        <SafeAreaView style={{ flexDirection: "row", marginHorizontal: 16 }}>
+          <Image
             source={{
               uri: "https://i.ibb.co/9w9PfNv/OIG-removebg-preview.png",
             }}
-            style={{ width: 340, height: 340, alignItems:"center", marginTop: 50 }}
+            style={{ width: 340, height: 340, alignItems: "center", marginTop: 50 }}
           />
         </SafeAreaView>
       </SafeAreaProvider>
@@ -42,13 +35,9 @@ export default function WelcomeScreen({navigation}) {
           }}
         ></View>
 
-        <Text style={{ marginTop: 50, fontSize: 22, fontWeight: "bold" }}>
-          Make people and nature smile
-        </Text>
+        <Text style={{ marginTop: 50, fontSize: 22, fontWeight: "bold" }}>Make people and nature smile</Text>
         <Text style={{ marginTop: 20, fontSize: 20 }}>
-          Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend
-          habitasse consequat quam. Lorem ipsum dolor sit amet consectetur.
-          Aliquam volutpat eleifend habitasse consequat quam.
+          Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam. Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam.
         </Text>
 
         <TouchableOpacity
@@ -62,9 +51,7 @@ export default function WelcomeScreen({navigation}) {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>
-            Let's Go
-          </Text>
+          <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>Let's Go</Text>
         </TouchableOpacity>
       </View>
     </View>
