@@ -10,6 +10,7 @@ import Register from "../screens/Register";
 import ProductDetail from "../screens/ProductDetail";
 import MyBasket from "../screens/MyBasket";
 import Notifikasi from "../screens/Notifikasi";
+import OrderComplate from "../screens/OrderComplate";
 
 const AppNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -17,7 +18,6 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MyBasket" component={MyBasket} />
         <Stack.Screen name="Welcogme" component={WelcomeScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="History" component={History} />
@@ -26,6 +26,8 @@ const AppNavigation = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Notifikasi" component={Notifikasi} />
+        <Stack.Screen name="MyBasket" component={MyBasket} />
+        <Stack.Screen name="OrderComplate" component={OrderComplate} />
       </Stack.Navigator>
     </NavigationContainer>
   );
