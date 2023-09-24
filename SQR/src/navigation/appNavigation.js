@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import ProductList from "../screens/ProductList";
 import Register from "../screens/Register";
 import ProductDetail from "../screens/ProductDetail";
+import Notifikasi from "../screens/Notifikasi";
 
 const AppNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ const AppNavigation = () => {
         <Stack.Screen name="ProductDetail" component={ProductDetail} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Notifikasi" component={Notifikasi} />
       </Stack.Navigator>
     </NavigationContainer>
   );
