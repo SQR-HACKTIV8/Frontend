@@ -1,8 +1,16 @@
 import { Text, View, Image, TextInput, TouchableOpacity, Animated, Easing } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
+import { useState } from "react";
 
 export default function LoginScreen({ navigation }) {
+  const [login, setLogin] = useState({ email: "", password: "" });
+
+  const onChangeLogin = ({ target }) => {
+    const { name, value } = target;
+    setLogin({ ...login, [name]: value });
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.COLOR_PRIMARY }}>
       <SafeAreaProvider>
