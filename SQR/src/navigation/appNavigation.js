@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import ProductList from "../screens/ProductList";
 import Register from "../screens/Register";
 import ProductDetail from "../screens/ProductDetail";
+import MyBasket from "../screens/MyBasket";
 import Notifikasi from "../screens/Notifikasi";
 
 const AppNavigation = () => {
@@ -16,6 +17,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="MyBasket" component={MyBasket} />
         <Stack.Screen name="Welcogme" component={WelcomeScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="History" component={History} />
