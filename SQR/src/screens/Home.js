@@ -6,15 +6,36 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import RecommendedCard from "../components/RecommendedCard";
 import QurbanType from "../components/QurbanTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAsyncCategorySuccess, fetchCategory, fetchHabit, fetchQurbans } from "../stores/action";
+import useFetch from "../hooks/useFetch";
 
 export default function Home({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
+  // const { data, loading, refetchData } = useFetch()
+  // console.log(data)
+  const dispatch = useDispatch();
 
+  const categories = useSelector((state) => {
+    return state.categories
+  })
+  const qurbans = useSelector((state) => {
+    return state.qurbans
+  })
+  
   useEffect(() => {
+    // dispatch(fetchHabit())
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
   }, []);
+
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+    dispatch(fetchQurbans())
+  }, []);
+
 
   return (
     <SafeAreaProvider>
@@ -37,7 +58,7 @@ export default function Home({ navigation }) {
               <Text style={{ fontSize: 22, fontWeight: "bold" }}>
                 Recommended
               </Text>
-              <RecommendedCard />
+              <RecommendedCard qurbans={qurbans} />
             </View>
             <View style={{ marginTop: 50 }}>
               <Text style={{ fontSize: 22, fontWeight: "bold" }}>
