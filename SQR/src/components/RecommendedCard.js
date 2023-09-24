@@ -1,32 +1,47 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { bannerImage, recommdedImage } from "../assets/assests";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-export default function RecommendedCard() {
+export default function RecommendedCard({ qurbans }) {
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{ flexDirection: "row" }}>
-          {recommdedImage.map((e, i) => {
-            return (
-              <View key={i}>
-                <Image
-                  source={{
-                    uri: `${e.imageUrl}`,
-                  }}
-                  style={styles.bannerHome}
-                />
-                <View>
-                  <Text style={styles.cardText}>{e.title}</Text>
-                  <Text style={{ paddingHorizontal: 5, color: "#808080" }}>
-                    {e.description}
-                  </Text>
-                  <Text style={{ paddingHorizontal: 5, color: "#808080" }}>
-                    {e.price}/ {e.weight} KG
-                  </Text>
-                </View>
+        <View style={{ flexDirection: "row", overflow: "hidden" }}>
+          {qurbans.map((e, i) => (
+            <Pressable
+              key={i}
+              style={styles.cardContainer}
+              onPress={() =>
+                navigation.navigate("ProductDetail", { qurbanId: e.id })
+              }
+            >
+              <Image
+                source={{
+                  uri: `${e.imageUrl1}`,
+                }}
+                style={styles.bannerHome}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.cardText} numberOfLines={1}>
+                  {e.name}
+                </Text>
+                <Text style={styles.descriptionText} numberOfLines={2}>
+                  {e.description}
+                </Text>
+                <Text style={styles.priceText}>
+                  {e.price} / {e.weight} KG
+                </Text>
               </View>
-            );
-          })}
+            </Pressable>
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -34,18 +49,33 @@ export default function RecommendedCard() {
 }
 
 const styles = StyleSheet.create({
+  cardContainer: {
+    marginRight: 16,
+  },
+
   bannerHome: {
     width: 150,
     height: 150,
     backgroundColor: "#fff",
     marginTop: 10,
-    marginEnd: 16,
     borderRadius: 10,
     overflow: "hidden",
   },
 
-  cardText: {
+  textContainer: {
     padding: 5,
+    width: 150,
+  },
+
+  cardText: {
     fontWeight: "bold",
+  },
+
+  descriptionText: {
+    color: "#808080",
+  },
+
+  priceText: {
+    color: "#808080",
   },
 });

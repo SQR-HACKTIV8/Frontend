@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -12,28 +12,60 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { FontAwesome } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
-import { Picker } from "@react-native-picker/picker";
 import { recommdedImage } from "../assets/assests";
-import ModalDropdown from "react-native-modal-dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOneQurban } from "../stores/action";
 
 export default function ProductDetail({ route, navigation }) {
+  const dispatch = useDispatch();
   const [playing, setPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState("Akasia");
   console.log(selectedOption);
+  const { qurbanId } = route.params;
+  const oneQurban = useSelector((state) => {
+    return state.oneQurban;
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    dispatch(fetchOneQurban(qurbanId));
+  }, []);
+
+  const videoUrl = oneQurban?.videoUrl || "";
+  const videoId = videoUrl.split("/").pop();
 
   const onStateChange = useCallback((state) => {
     if (state === "ended") {
       setPlaying(false);
-      Alert.alert("video has finished playing!");
+      Alert.alert("Video telah selesai diputar!");
     }
   }, []);
+
   const options = ["Akasia", "Pinus", "Cemara", "Edelweis"];
 
-  const { qurbanId } = route.params;
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+        }}
+      >
+        <ActivityIndicator size="large" color={colors.COLOR_PRIMARY} />
+      </View>
+    );
+  }
+
   return (
     <View style={{ backgroundColor: colors.COLOR_PRIMARY, flex: 1 }}>
       <SafeAreaProvider>
@@ -64,29 +96,39 @@ export default function ProductDetail({ route, navigation }) {
             top: -250,
           }}
         >
-          <Image
-            source={{ uri: recommdedImage[0].imageUrl }}
-            style={{
-              width: "100%",
-              height: "100%",
-              resizeMode: "contain",
-              borderRadius: 20,
-            }}
-          />
+          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+            {[
+              oneQurban.imageUrl1,
+              oneQurban.imageUrl2,
+              oneQurban.imageUrl3,
+            ].map((imageUrl, index) => (
+              <Image
+                key={index}
+                source={{ uri: imageUrl }}
+                style={{
+                  width: 300,
+                  height: 300,
+                  resizeMode: "contain",
+                  borderRadius: 20,
+                  marginHorizontal: 10,
+                }}
+              />
+            ))}
+          </ScrollView>
         </View>
 
-        <Text style={{ marginTop: 60, fontSize: 28, fontWeight: "bold" }}>
-          {recommdedImage[0].title}
+        <Text style={{ marginTop: 60, fontSize: 24, fontWeight: "bold" }}>
+          {oneQurban.name}
         </Text>
         <Text
           style={{
-            fontSize: 25,
+            fontSize: 20,
             color: "#808080",
             width: 350,
             textAlign: "center",
           }}
         >
-          RP. {recommdedImage[0].price} / {recommdedImage[0].weight} KG
+          RP. {oneQurban.price} / {oneQurban.weight} KG
         </Text>
 
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -111,7 +153,7 @@ export default function ProductDetail({ route, navigation }) {
               marginBottom: 16,
             }}
           >
-            {recommdedImage[0].description}
+            {oneQurban.description}
           </Text>
           <View
             style={{
@@ -133,45 +175,35 @@ export default function ProductDetail({ route, navigation }) {
             <YoutubePlayer
               height={200}
               play={playing}
-              videoId={"QJcVnZqS55I"}
+              videoId={videoId}
               onChangeState={onStateChange}
             />
-            {/* <Button
-                title={playing ? "pause" : "play"}
-                onPress={togglePlaying}
-              /> */}
           </View>
 
           <View style={{ alignSelf: "flex-start", marginVertical: 22 }}>
             <Text style={{ fontSize: 22, fontWeight: "600", marginBottom: 6 }}>
               We plant trees where they’re needed the most
             </Text>
-            <ModalDropdown
-              options={options}
-              onSelect={(index, value) => setSelectedOption(value)}
+            <Picker
+              selectedValue={selectedOption}
+              onValueChange={(itemValue) => setSelectedOption(itemValue)}
               style={{
                 width: 370,
-                paddingVertical: 10,
-                paddingHorizontal: 12,
                 borderWidth: 1,
                 borderColor: colors.COLOR_PRIMARY,
                 borderRadius: 5,
                 marginTop: 16,
                 backgroundColor: "white",
               }}
-              textStyle={{ fontSize: 18, color: "black" }}
-              dropdownStyle={{
-                width: 370,
-                borderWidth: 1,
-                borderColor: colors.COLOR_PRIMARY,
-                borderRadius: 5,
-                marginTop: 1,
-              }}
-              dropdownTextStyle={{ fontSize: 18, color: "black" }}
-              dropdownTextHighlightStyle={{
-                backgroundColor: colors.COLOR_PRIMARY,
-              }}
-            />
+            >
+              {options.map((option, index) => (
+                <Picker.Item
+                  key={index}
+                  label={option}
+                  value={option}
+                />
+              ))}
+            </Picker>
 
             <View
               style={{
@@ -204,7 +236,7 @@ export default function ProductDetail({ route, navigation }) {
             </View>
             <View style={{ alignItems: "flex-end" }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("History")}
                 style={{
                   backgroundColor: colors.COLOR_PRIMARY,
                   marginTop: 50,
