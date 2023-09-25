@@ -1,8 +1,10 @@
 import { Image, Pressable, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function Header() {
+  const navigation = useNavigation()
   return (
     <>
       <Image
@@ -22,12 +24,12 @@ export default function Header() {
         }}
       >
         <Pressable
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Notifikasi")}
           style={{ marginRight: 12 }}
         >
           <FontAwesome name="bell-o" size={28} color="black" />
         </Pressable>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={() => navigation.navigate("MyBasket")}>
           <FontAwesome name={"shopping-basket"} size={28} color="black" />
         </Pressable>
       </View>

@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-
+import { rupiah } from "../hooks/rupiahConvert";
 export default function RecommendedCard({ qurbans }) {
   const navigation = useNavigation();
   return (
@@ -37,7 +37,7 @@ export default function RecommendedCard({ qurbans }) {
                   {e.description}
                 </Text>
                 <Text style={styles.priceText}>
-                  {e.price} / {e.weight} KG
+                  {rupiah(e.price)} / {e.weight}
                 </Text>
               </View>
             </Pressable>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Image,
   Pressable,
@@ -12,15 +12,14 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function QurbanType() {
   const navigation = useNavigation();
+
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: "row" }}>
           <Pressable
             style={styles.cardContainer}
-            onPress={() =>
-              navigation.navigate("ProductList", { category: "Kambing" })
-            }
+            onPress={() => navigation.navigate("ProductList", { category: 1 })}
           >
             <Image
               source={{
@@ -32,9 +31,7 @@ export default function QurbanType() {
           </Pressable>
           <Pressable
             style={styles.cardContainer}
-            onPress={() =>
-              navigation.navigate("ProductList", { category: "Sapi" })
-            }
+            onPress={() => navigation.navigate("ProductList", { category: 2 })}
           >
             <Image
               source={{
@@ -61,6 +58,15 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   cardImage: {
     width: 80,

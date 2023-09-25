@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Button,
   Image,
   Pressable,
@@ -10,13 +11,42 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
-import { recommdedImage } from "../assets/assests";
+import { colors, recommdedImage } from "../assets/assests";
 import CardList from "../components/CardList";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQurbanByType } from "../stores/action";
 
 export default function ProductList({ navigation, route }) {
   const { category } = route.params;
-  const dataLength = recommdedImage.length;
-//   let itemWidth = dataLength > 2 ? "50%" : "100%";
+  const [isLoading, setIsLoading] = useState(true);
+  // const dataLength = recommdedImage.length;
+  const dispatch = useDispatch();
+  const qurbansByType = useSelector((state) => {
+    return state.qurbansByType;
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    dispatch(fetchQurbanByType(category));
+  }, []);
+  //   let itemWidth = dataLength > 2 ? "50%" : "100%";
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+        }}
+      >
+        <ActivityIndicator size="large" color={colors.COLOR_PRIMARY} />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaProvider>
@@ -33,7 +63,9 @@ export default function ProductList({ navigation, route }) {
           </Pressable>
 
           <View style={{ flex: 2, alignItems: "center" }}>
-            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{category}</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+              {qurbansByType[0].Category.name}
+            </Text>
           </View>
 
           <Pressable
@@ -44,7 +76,7 @@ export default function ProductList({ navigation, route }) {
           </Pressable>
         </View>
 
-          <CardList/>
+        <CardList qurbansByType={qurbansByType} />
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -61,7 +93,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: 100,
-    overflow:"hidden",
+    overflow: "hidden",
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 10,

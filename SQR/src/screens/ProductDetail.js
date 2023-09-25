@@ -11,6 +11,7 @@ import {
   Alert,
   Button,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -19,28 +20,37 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 import { recommdedImage } from "../assets/assests";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneQurban } from "../stores/action";
+import { addCartDetail, addToCart, fetchOneQurban } from "../stores/action";
 
 export default function ProductDetail({ route, navigation }) {
   const dispatch = useDispatch();
   const [playing, setPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState("Akasia");
-  console.log(selectedOption);
+  const [onBehalfOf, setOnBehalfOf] = useState("");
   const { qurbanId } = route.params;
   const oneQurban = useSelector((state) => {
     return state.oneQurban;
   });
+  const videoUrl = oneQurban?.videoUrl || "";
+  const videoId = videoUrl.split("/").pop();
 
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+  };
+
+  const handleBasketDetail = (item) => {
+    dispatch(addCartDetail(item));
+  };
+  const screenWidth = Dimensions.get("window").width;
+
+  const containerWidht =  screenWidth < 450 ? 370 : 430
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
     dispatch(fetchOneQurban(qurbanId));
   }, []);
-
-  const videoUrl = oneQurban?.videoUrl || "";
-  const videoId = videoUrl.split("/").pop();
 
   const onStateChange = useCallback((state) => {
     if (state === "ended") {
@@ -128,18 +138,16 @@ export default function ProductDetail({ route, navigation }) {
             textAlign: "center",
           }}
         >
-          RP. {oneQurban.price} / {oneQurban.weight} KG
+          RP. {oneQurban.price} / {oneQurban.weight}
         </Text>
 
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "bold",
               marginTop: 16,
-              width: 350,
-              borderBottomWidth: 1,
-              borderBottomColor: colors.COLOR_PRIMARY,
+              width: "100%",
               textAlign: "left",
             }}
           >
@@ -147,8 +155,8 @@ export default function ProductDetail({ route, navigation }) {
           </Text>
           <Text
             style={{
-              fontSize: 18,
-              width: 350,
+              fontSize: 16,
+              width: containerWidht,
               textAlign: "left",
               marginBottom: 16,
             }}
@@ -160,16 +168,9 @@ export default function ProductDetail({ route, navigation }) {
               borderRadius: 10,
               borderBottomEndRadius: 10,
               borderBottomLeftRadius: 10,
+              marginTop: 16,
               overflow: "hidden",
               shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
             }}
           >
             <YoutubePlayer
@@ -189,41 +190,28 @@ export default function ProductDetail({ route, navigation }) {
               onValueChange={(itemValue) => setSelectedOption(itemValue)}
               style={{
                 width: 370,
+                height: 70,
+                flex: 0,
                 borderWidth: 1,
                 borderColor: colors.COLOR_PRIMARY,
                 borderRadius: 5,
                 marginTop: 16,
                 backgroundColor: "white",
               }}
+              itemStyle={{ height: 70, fontSize: 14, justifyContent: "center" }}
+              itemTextStyle={{ textAlign: "center" }}
             >
               {options.map((option, index) => (
-                <Picker.Item
-                  key={index}
-                  label={option}
-                  value={option}
-                />
+                <Picker.Item key={index} label={option} value={option} />
               ))}
             </Picker>
 
-            <View
-              style={{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                elevation: 5,
-                width: 350,
-              }}
-            >
+            <View>
               <Text
                 style={{
                   marginTop: 16,
                   fontSize: 16,
-                  width: 350,
+                  width: 370,
                   textAlign: "left",
                 }}
               >
@@ -234,9 +222,33 @@ export default function ProductDetail({ route, navigation }) {
                 dan menjaga kualitas air
               </Text>
             </View>
+            <TextInput
+              style={{
+                height: 40,
+                borderColor: "gray",
+                borderWidth: 1,
+                marginVertical: 20,
+                paddingLeft: 10,
+              }}
+              placeholder="Atas Nama"
+              value={onBehalfOf}
+              onChangeText={(text) => setOnBehalfOf(text)}
+            />
             <View style={{ alignItems: "flex-end" }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("History")}
+                onPress={() => {
+                  handleBasketDetail({
+                    name: oneQurban.name,
+                    price: oneQurban.price,
+                    imageUrl: oneQurban.imageUrl1,
+                  });
+                  handleAddToCart({
+                    qurbanId: oneQurban.id,
+                    onBehalfOf: onBehalfOf,
+                    treeType: selectedOption,
+                  });
+                  navigation.navigate("Home");
+                }}
                 style={{
                   backgroundColor: colors.COLOR_PRIMARY,
                   marginTop: 50,
