@@ -69,6 +69,27 @@ export const fetchOneQurban = (id) => {
   };
 };
 
+export const login = (payload) => {
+  return async () => {
+    try {
+      const response = await fetch("http:localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) {
+        throw { message: "something wrong!" };
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+};
 
 export const fetchQurbanByType = (filter) => {
   return async (dispatch) => {
