@@ -12,6 +12,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { checkoutBasket } from "../stores/action";
 
 const MyBasketScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -23,10 +24,13 @@ const MyBasketScreen = ({ navigation }) => {
   };
   const cartItems = useSelector((state) => state.cartItems);
   const basket = useSelector((state) => state.basket);
-
   const totalAmount = basket.reduce((total, item) => {
     return total + item.price;
   }, 0);
+  
+  const handleCheckout = () => {
+    dispatch(checkoutBasket(cartItems))
+  }
 
 
   return (
@@ -52,7 +56,7 @@ const MyBasketScreen = ({ navigation }) => {
                 />
                 <View style={styles.itemDetails}>
                   <Text style={styles.itemName}>{item.name}</Text>
-                  <Text style={styles.itemQuantity}>1 ekor</Text>
+                  <Text style={styles.itemQuantity}>An: {item.onBehalfOf}</Text>
                 </View>
                 <View style={styles.itemPrice}>
                   <Text style={styles.itemPriceText}>{rupiah(item.price)}</Text>
@@ -68,7 +72,10 @@ const MyBasketScreen = ({ navigation }) => {
           <Text style={styles.totalAmount}>{rupiah(totalAmount)}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            handleCheckout()
+            navigation.navigate("Midtrans")
+          }}
           style={styles.checkoutButton}
         >
           <Text style={styles.checkoutButtonText}>Checkout</Text>
@@ -136,7 +143,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemQuantity: {
-    fontWeight: "400",
+    color: "#808080",
+    fontWeight: "400"
   },
   itemPrice: {
     width: 120,

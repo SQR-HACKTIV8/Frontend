@@ -1,4 +1,4 @@
-const BASE_URL = "https://abef-123-253-233-150.ngrok-free.app/";
+const BASE_URL = "https://7168-123-253-233-150.ngrok-free.app/";
 import axios from "axios";
 
 export const fetchCategory = () => {
@@ -111,18 +111,55 @@ export const fetchQurbanByType = (filter) => {
   };
 };
 
+export const checkoutBasket = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        url: BASE_URL + "orders",
+        method: "post",
+        data: input,
+        headers: {
+          access_token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk1NTQ0NDA3fQ.kTwxeqodSbetqZJUajHbjWH3ZRPK1d37roqJGR85F-4",
+        },
+      });
+      console.log(response.data)
+      const result = await axios({
+        url: BASE_URL + "token-midtrans",
+        method: "post",
+        data: {
+          OrderId: response.data.findNewOrder.OrderId,
+          totalPrice: response.data.findNewOrder.totalPrice,
+        },
+        headers: {
+          access_token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk1NTQ0NDA3fQ.kTwxeqodSbetqZJUajHbjWH3ZRPK1d37roqJGR85F-4",
+        },
+      });
+      console.log(response.data.totalPrice)
+      // console.log(result.data.redirect_url);
+      const action = {
+        type: "token/addSuccess",
+        payload: result.data.redirect_url,
+      };
+      dispatch(action);
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
 export const addCartDetail = (item) => ({
-  type: 'ADD_TO_CART_DETAIL',
+  type: "ADD_TO_CART_DETAIL",
   payload: item,
 });
 
 export const addToCart = (item) => ({
-  type: 'ADD_TO_CART',
+  type: "ADD_TO_CART",
   payload: item,
 });
 
-
 export const removeFromCart = (itemId) => ({
-  type: 'REMOVE_FROM_CART',
+  type: "REMOVE_FROM_CART",
   payload: itemId,
 });
