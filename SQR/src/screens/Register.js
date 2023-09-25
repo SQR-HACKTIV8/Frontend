@@ -21,31 +21,31 @@ export default function RegisterScreen({ navigation }) {
               <View style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#F5F5F5", height: 55, marginVertical: 10, paddingHorizontal: 10 }}>
                 <Ionicons name="person" size={28} color="#b0aeae" />
               </View>
-              <TextInput placeholder="Username" style={{ fontSize: 15, fontWeight: "500", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
+              <TextInput placeholder="Username" style={{ fontSize: 15, fontWeight: "400", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
             </View>
             <View style={{ flexDirection: "row", paddingStart: 30, paddingEnd: 30 }}>
               <View style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#F5F5F5", height: 55, marginVertical: 10, paddingHorizontal: 10 }}>
                 <MaterialIcons name="email" size={30} color="#b0aeae" />
               </View>
-              <TextInput placeholder="Email" style={{ fontSize: 15, fontWeight: "500", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
+              <TextInput placeholder="Email" style={{ fontSize: 15, fontWeight: "400", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
             </View>
             <View style={{ flexDirection: "row", paddingStart: 30, paddingEnd: 30 }}>
               <View style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#F5F5F5", height: 55, marginVertical: 10, paddingHorizontal: 10 }}>
                 <FontAwesome name="lock" size={30} color="#b0aeae" />
               </View>
-              <TextInput placeholder="Password" style={{ fontSize: 15, fontWeight: "500", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
+              <TextInput placeholder="Password" style={{ fontSize: 15, fontWeight: "400", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
             </View>
             <View style={{ flexDirection: "row", paddingStart: 30, paddingEnd: 30 }}>
               <View style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#F5F5F5", height: 55, marginVertical: 10, paddingHorizontal: 10 }}>
                 <FontAwesome name="phone" size={30} color="#b0aeae" />
               </View>
-              <TextInput placeholder="Phone Number" style={{ fontSize: 15, fontWeight: "500", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
+              <TextInput placeholder="Phone Number" style={{ fontSize: 15, fontWeight: "400", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
             </View>
             <View style={{ flexDirection: "row", paddingStart: 30, paddingEnd: 30 }}>
               <View style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#F5F5F5", height: 55, marginVertical: 10, paddingHorizontal: 10 }}>
                 <MaterialCommunityIcons name="file-image-plus" size={30} color="#b0aeae" />
               </View>
-              <TextInput placeholder="Image Url" style={{ fontSize: 15, fontWeight: "500", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
+              <TextInput placeholder="Image Url" style={{ fontSize: 15, fontWeight: "400", borderTopRightRadius: 10, borderBottomRightRadius: 10, flex: 1, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55 }} />
             </View>
 
             <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: -30 }}>
