@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartDetail, addToCart, fetchOneQurban } from "../stores/action";
 import { colors } from "../assets/assests";
@@ -53,7 +62,7 @@ export default function ProductDetail({ route, navigation }) {
   };
   const screenWidth = Dimensions.get("window").width;
 
-  const containerWidht = screenWidth < 450 ? 370 : 430;
+  const containerWidth = screenWidth < 450 ? 370 : 430;
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -106,15 +115,36 @@ export default function ProductDetail({ route, navigation }) {
                 }}
               >
                 <TouchableOpacity onPress={handleBack}>
-                  <FontAwesome name={"arrow-circle-left"} size={28} color="black" />
+                  <FontAwesome
+                    name={"arrow-circle-left"}
+                    size={28}
+                    color="black"
+                  />
                 </TouchableOpacity>
                 <FontAwesome name={"heart-o"} size={26} color="black" />
               </View>
 
               {/* Product Details */}
               <View style={{ padding: 16 }}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-                  {[oneQurban.imageUrl1, oneQurban.imageUrl2, oneQurban.imageUrl3].map((imageUrl, index) => (
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={true}
+                  style={{
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 7,
+                    },
+                    shadowOpacity: 0.43,
+                    shadowRadius: 9.51,
+                    elevation: 15,
+                  }}
+                >
+                  {[
+                    oneQurban.imageUrl1,
+                    oneQurban.imageUrl2,
+                    oneQurban.imageUrl3,
+                  ].map((imageUrl, index) => (
                     <Image
                       key={index}
                       source={{ uri: imageUrl }}
@@ -128,42 +158,104 @@ export default function ProductDetail({ route, navigation }) {
                     />
                   ))}
                 </ScrollView>
-                <Text style={{ paddingTop: 10, fontSize: 24, fontWeight: "bold" }}>{oneQurban.name}</Text>
-                <Text style={{ fontSize: 17, fontWeight: "500", color: "#808080", marginTop: 0 }}>
+                <Text
+                  style={{ paddingTop: 10, fontSize: 24, fontWeight: "bold" }}
+                >
+                  {oneQurban.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    fontWeight: "500",
+                    color: "#808080",
+                    marginTop: 0,
+                  }}
+                >
                   Rp. {oneQurban.price}/{oneQurban.weight}
                 </Text>
 
                 {/* Description */}
-                <View style={{ borderRadius: 10, marginTop: 20, marginBottom: 5, flex: 1, backgroundColor: "#97CF8A", alignItems: "center", justifyContent: "center" }}>
-                  <Text style={{ paddingStart: 10, paddingEnd: 10, marginVertical: 15, fontSize: 16, marginTop: 16 }}>{oneQurban.description}</Text>
+                <View
+                  style={{
+                    borderRadius: 10,
+                    marginTop: 20,
+                    marginBottom: 5,
+                    flex: 1,
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 7,
+                    },
+                    shadowOpacity: 0.43,
+                    shadowRadius: 9.51,
+                    elevation: 15,
+                  }}
+                >
+                  <Text
+                    style={{
+                      paddingStart: 10,
+                      paddingEnd: 10,
+                      marginVertical: 15,
+                      fontSize: 16,
+                      marginTop: 16,
+                    }}
+                  >
+                    {oneQurban.description}
+                  </Text>
                 </View>
 
+                {/* YouTube Video */}
+                <View style={{ marginTop: 16, borderRadius: 10, overflow: 'hidden' }}>
+                  {isFocused ? (
+                    <YoutubePlayer
+                      height={300}
+                      play={playing}
+                      videoId={videoId}
+                    />
+                  ) : null}
+                </View>
                 {isFocused ? (
                   <TextInput
                     style={{
-                      height: 40,
-                      borderColor: "gray",
+                      height: 60,
+                      borderColor: "black",
                       borderWidth: 1,
-                      marginTop: 20,
-                      paddingLeft: 10,
+                      paddingHorizontal: 10,
                       borderRadius: 10,
                       marginBottom: 10,
                     }}
-                    placeholder="On Behalf Of"
+                    placeholder="Atas Nama"
                     value={onBehalfOf}
                     onChangeText={(text) => setOnBehalfOf(text)}
                   />
                 ) : null}
-
-                {/* YouTube Video */}
-                <View style={{ marginTop: 16 }}>{isFocused ? <YoutubePlayer height={200} play={playing} videoId={videoId} /> : null}</View>
-
                 {/* Tree Type Picker */}
-                <View style={{ marginTop: 30 }}>
-                  <Text style={{ fontSize: 18 }}>Select Tree Type:</Text>
-                  <View style={{ marginBottom: -36 }}>
+                <View
+                  style={{
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 7,
+                    },
+                    shadowOpacity: 0.43,
+                    shadowRadius: 9.51,
+                    elevation: 15,
+                    marginVertical: 16,
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 22, fontWeight: "600", marginBottom: 6 }}
+                  >
+                    We plant trees where they’re needed the most
+                  </Text>
+                  <Text style={{ fontSize: 16, marginBottom: 16 }}>
+                    Select Tree Type:
+                  </Text>
+                  <View style={{ height: 100 }}>
                     <DropdownSelect
-                      label="Country"
                       placeholder="Select an option..."
                       options={options.map((v) => ({ label: v, value: v }))}
                       selectedValue={selectedOption}
@@ -171,6 +263,18 @@ export default function ProductDetail({ route, navigation }) {
                       primaryColor={"green"}
                     />
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      textAlign: "left",
+                    }}
+                  >
+                    Reboisasi di hutan Bromo bertujuan utama untuk memulihkan
+                    ekosistem yang telah terganggu akibat aktivitas manusia dan
+                    perubahan iklim. Upaya ini juga bertujuan untuk mengurangi
+                    erosi tanah, mempertahankan keanekaragaman hayati, dan
+                    menjaga kualitas air
+                  </Text>
                 </View>
               </View>
 
@@ -196,11 +300,32 @@ export default function ProductDetail({ route, navigation }) {
                   padding: 16,
                   borderRadius: 8,
                   alignItems: "center",
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 7,
+                  },
+                  shadowOpacity: 0.43,
+                  shadowRadius: 9.51,
+                  elevation: 15,
                 }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <MaterialCommunityIcons name="basket-plus" size={26} color="#fff" />
-                  <Text style={{ marginStart: 10, color: "white", fontSize: 18, fontWeight: "bold" }}>Add to Basket</Text>
+                  <MaterialCommunityIcons
+                    name="basket-plus"
+                    size={26}
+                    color="#fff"
+                  />
+                  <Text
+                    style={{
+                      marginStart: 10,
+                      color: "white",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Add to Basket
+                  </Text>
                 </View>
               </TouchableOpacity>
             </ScrollView>
