@@ -75,6 +75,7 @@ export default function LoginScreen({ navigation }) {
             }}
             onChangeText={(text) => onChangeLogin("password", text)}
           />
+
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30 }}>
           <TouchableOpacity
