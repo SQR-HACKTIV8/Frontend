@@ -7,7 +7,8 @@ const initialState = {
   qurbans: [],
   oneQurban: {},
   cartItems: [],
-  basket: []
+  basket: [],
+  tokenMidtrans: ""
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -52,6 +53,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartItems: state.cartItems.filter((item) => item.id !== action.payload),
       };
+    case "token/addSuccess":
+        return {
+          ...state,
+          tokenMidtrans: action.payload,
+          cartItems: []
+        }
     default:
       return state;
   }
