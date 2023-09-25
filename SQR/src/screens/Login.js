@@ -23,11 +23,11 @@ export default function LoginScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <View style={{ padding: 30 }}>
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>What is your Email ?</Text>
-          <TextInput textAlign="center" placeholder="Email" style={{ backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
+          <TextInput textAlign="center" placeholder="Email" style={{ fontSize: 15, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: -25 }}>
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>Your Password</Text>
-          <TextInput textAlign="center" placeholder="Password" style={{ backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
+          <TextInput textAlign="center" placeholder="Password" style={{ fontSize: 15, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30 }}>
           <TouchableOpacity
@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: 20 }}>
-          <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}>
+          <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 18 }}>
             create an account ?{" "}
             <Text onPress={() => navigation.navigate("Register")} style={{ color: colors.COLOR_PRIMARY }}>
               Sing up

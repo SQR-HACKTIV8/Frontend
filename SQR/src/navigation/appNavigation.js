@@ -15,7 +15,6 @@ import Midtrans from "../screens/Midtrans";
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
-
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -25,8 +24,8 @@ const AppNavigation = () => {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="MyBasket" component={MyBasket} />
         <Stack.Screen name="ProductList" component={ProductList} />
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Notifikasi" component={Notifikasi} />
         <Stack.Screen name="OrderComplate" component={OrderComplate} />
         <Stack.Screen name="Midtrans" component={Midtrans} />
