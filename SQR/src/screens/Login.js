@@ -1,13 +1,32 @@
-import { Text, View, Image, TextInput, TouchableOpacity, Animated, Easing } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginData } from "../stores/action";
 
 export default function LoginScreen({ navigation }) {
+  const dispatch = useDispatch()
   const [login, setLogin] = useState({ email: "", password: "" });
 
-  const onChangeLogin = ({ target }) => {
-    const { name, value } = target;
+  const handleLogin = () => {
+    const { email, password } = login;
+
+    if (email && password) {
+      dispatch(loginData(login))
+      navigation.navigate("Home");
+    } else {
+      alert("Please fill in both email and password fields.");
+    }
+  };
+
+  const onChangeLogin = (name, value) => {
     setLogin({ ...login, [name]: value });
   };
 
@@ -16,22 +35,51 @@ export default function LoginScreen({ navigation }) {
       <SafeAreaProvider>
         <SafeAreaView>
           <View style={{ alignItems: "center", marginVertical: 30 }}>
-            <Image style={{ width: 350, height: 350 }} source={require("../assets/goat_login.png")} />
+            <Image
+              style={{ width: 350, height: 350 }}
+              source={require("../assets/goat_login.png")}
+            />
           </View>
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <View style={{ padding: 30 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 20 }}>What is your Email ?</Text>
-          <TextInput textAlign="center" placeholder="Email" style={{ fontSize: 15, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+            What is your Email?
+          </Text>
+          <TextInput
+            textAlign="center"
+            placeholder="Email"
+            style={{
+              backgroundColor: "#F5F5F5",
+              marginVertical: 10,
+              height: 55,
+              borderRadius: 10,
+            }}
+            onChangeText={(text) => onChangeLogin("email", text)}
+          />
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: -25 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 20 }}>Your Password</Text>
-          <TextInput textAlign="center" placeholder="Password" style={{ fontSize: 15, backgroundColor: "#F5F5F5", marginVertical: 10, height: 55, borderRadius: 10 }} />
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+            Your Password
+          </Text>
+          <TextInput
+            textAlign="center"
+            placeholder="Password"
+            secureTextEntry
+            style={{
+              backgroundColor: "#F5F5F5",
+              marginVertical: 10,
+              height: 55,
+              borderRadius: 10,
+            }}
+            onChangeText={(text) => onChangeLogin("password", text)}
+          />
+
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30 }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
+            onPress={handleLogin}
             style={{
               backgroundColor: colors.COLOR_PRIMARY,
               marginTop: 50,
@@ -41,14 +89,19 @@ export default function LoginScreen({ navigation }) {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>Start Save the Earth</Text>
+            <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>
+              Start Save the Earth
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: 20 }}>
-          <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 18 }}>
-            create an account ?{" "}
-            <Text onPress={() => navigation.navigate("Register")} style={{ color: colors.COLOR_PRIMARY }}>
-              Sing up
+          <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}>
+            Create an account?{" "}
+            <Text
+              onPress={() => navigation.navigate("Register")}
+              style={{ color: colors.COLOR_PRIMARY }}
+            >
+              Sign up
             </Text>
           </Text>
         </View>

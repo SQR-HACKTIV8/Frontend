@@ -1,5 +1,6 @@
 const BASE_URL = "https://7168-123-253-233-150.ngrok-free.app/";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const fetchCategory = () => {
   return async (dispatch) => {
@@ -69,28 +70,6 @@ export const fetchOneQurban = (id) => {
   };
 };
 
-export const login = (payload) => {
-  return async () => {
-    try {
-      const response = await fetch("http:localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) {
-        throw { message: "something wrong!" };
-      }
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  };
-};
-
 export const fetchQurbanByType = (filter) => {
   return async (dispatch) => {
     try {
@@ -119,11 +98,10 @@ export const checkoutBasket = (input) => {
         method: "post",
         data: input,
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk1NTQ0NDA3fQ.kTwxeqodSbetqZJUajHbjWH3ZRPK1d37roqJGR85F-4",
+          access_token: await AsyncStorage.getItem("access_token"),
         },
       });
-      console.log(response.data)
+      console.log(response.data);
       const result = await axios({
         url: BASE_URL + "token-midtrans",
         method: "post",
@@ -132,11 +110,10 @@ export const checkoutBasket = (input) => {
           totalPrice: response.data.findNewOrder.totalPrice,
         },
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk1NTQ0NDA3fQ.kTwxeqodSbetqZJUajHbjWH3ZRPK1d37roqJGR85F-4",
+          access_token: await AsyncStorage.getItem("access_token"),
         },
       });
-      console.log(response.data.totalPrice)
+      console.log(response.data.totalPrice);
       // console.log(result.data.redirect_url);
       const action = {
         type: "token/addSuccess",
@@ -145,6 +122,38 @@ export const checkoutBasket = (input) => {
       dispatch(action);
     } catch (error) {
       throw error;
+    }
+  };
+};
+
+export const register = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        url: BASE_URL + "register",
+        method: "post",
+        data: input,
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+};
+
+export const loginData = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        url: BASE_URL + "login",
+        method: "post",
+        data: input,
+      });
+      await AsyncStorage.setItem("access_token", response.data.access_token);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data.message);
     }
   };
 };

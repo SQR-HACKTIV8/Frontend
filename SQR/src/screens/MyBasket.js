@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -13,8 +13,11 @@ import { colors } from "../assets/assests";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { checkoutBasket } from "../stores/action";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const MyBasketScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useDispatch();
   const rupiah = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -27,11 +30,29 @@ const MyBasketScreen = ({ navigation }) => {
   const totalAmount = basket.reduce((total, item) => {
     return total + item.price;
   }, 0);
-  
-  const handleCheckout = () => {
-    dispatch(checkoutBasket(cartItems))
-  }
 
+  const handleCheckout = () => {
+    dispatch(checkoutBasket(cartItems));
+  };
+
+  useEffect(() => {
+    // dispatch(fetchHabit())
+
+    setTimeout(async () => {
+      let usertoken;
+      try {
+        usertoken = await AsyncStorage.getItem("access_token");
+      } catch (error) {
+        console.log(error);
+      }
+
+      if(!usertoken){
+        navigation.navigate("Login")
+      }
+      // console.log(usertoken);
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   return (
     <>
@@ -73,8 +94,8 @@ const MyBasketScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            handleCheckout()
-            navigation.navigate("Midtrans")
+            handleCheckout();
+            navigation.navigate("Midtrans");
           }}
           style={styles.checkoutButton}
         >
@@ -144,7 +165,7 @@ const styles = StyleSheet.create({
   },
   itemQuantity: {
     color: "#808080",
-    fontWeight: "400"
+    fontWeight: "400",
   },
   itemPrice: {
     width: 120,

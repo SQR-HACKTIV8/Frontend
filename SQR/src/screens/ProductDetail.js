@@ -41,11 +41,11 @@ export default function ProductDetail({ route, navigation }) {
         imageUrl: oneQurban.imageUrl1,
       });
       handleAddToCart({
-        qurbanId: oneQurban.id,
+        QurbanId: oneQurban.id,
         onBehalfOf: onBehalfOf,
         treeType: selectedOption,
       });
-      // console.log(oneQurban);
+
       navigation.navigate("Home");
     } catch (error) {
       console.log(error);
@@ -184,7 +184,7 @@ export default function ProductDetail({ route, navigation }) {
                     onBehalfOf: onBehalfOf,
                   });
                   handleAddToCart({
-                    qurbanId: oneQurban.id,
+                    QurbanId: oneQurban.id,
                     onBehalfOf: onBehalfOf,
                     treeType: selectedOption,
                   });
