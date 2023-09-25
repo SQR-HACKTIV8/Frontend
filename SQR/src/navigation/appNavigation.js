@@ -27,7 +27,6 @@ const AppNavigation = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MyBasket" component={MyBasket} />
         <Stack.Screen name="Notifikasi" component={Notifikasi} />
-        <Stack.Screen name="MyBasket" component={MyBasket} />
         <Stack.Screen name="OrderComplate" component={OrderComplate} />
       </Stack.Navigator>
     </NavigationContainer>

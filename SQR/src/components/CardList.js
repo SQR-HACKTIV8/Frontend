@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Image,
   Pressable,
@@ -5,32 +6,45 @@ import {
   StyleSheet,
   Text,
   View,
+  Dimensions, 
 } from "react-native";
-import { recommdedImage } from "../assets/assests";
 import { useNavigation } from "@react-navigation/native";
+import { rupiah } from "../hooks/rupiahConvert";
+export default function CardList({ qurbansByType }) {
+  const navigation = useNavigation();
+  const screenWidth = Dimensions.get("window").width;
 
-export default function CardList() {
-  const navigation = useNavigation()
+
+  const numColumns = 2;
+  const containerWidth = (screenWidth - 50) / numColumns;
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <View style={styles.cardRow}>
-        {recommdedImage.map((item, index) => (
+        {qurbansByType.map((item, index) => (
           <Pressable
-            onPress={() => navigation.navigate("ProductDetail", { qurbanId: item.id })}
+            onPress={() =>
+              navigation.navigate("ProductDetail", { qurbanId: item.id })
+            }
             key={index}
-            style={[styles.cardContainer, { width: 180, margin: 5 }]}
+            style={[
+              styles.cardContainer,
+              { width: containerWidth, margin: 5 },
+            ]}
           >
             <Image
-              source={{ uri: item.imageUrl }}
+              source={{ uri: item.imageUrl1 }}
               style={styles.bannerHomeLarge}
             />
-            <Text style={styles.cardText}>{item.title}</Text>
-            <Text style={styles.descriptionText} numberOfLines={1}>
-              {item.description}
-            </Text>
-            <Text style={styles.cardText}>
-              {item.price}/ {item.weight} KG
-            </Text>
+            <View style={{ padding: 3, alignItems: "center" }}>
+              <Text style={styles.cardText}>{item.name}</Text>
+              <Text style={styles.descriptionText} numberOfLines={1}>
+                {item.description}
+              </Text>
+              <Text style={styles.cardText}>
+                {rupiah(item.price)}/ {item.weight}
+              </Text>
+            </View>
           </Pressable>
         ))}
       </View>
@@ -48,7 +62,6 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   cardContainer: {
-    width: 100,
     overflow: "hidden",
     alignItems: "center",
     backgroundColor: "#fff",
@@ -61,6 +74,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     padding: 5,
+    fontSize: 12,
     fontWeight: "bold",
   },
   descriptionText: {
