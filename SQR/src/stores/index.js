@@ -8,7 +8,8 @@ const initialState = {
   oneQurban: {},
   cartItems: [],
   basket: [],
-  tokenMidtrans: ""
+  orderList: [],
+  tokenMidtrans: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         categories: action.payload,
+      };
+    case "orderList/fetchSuccess":
+      return {
+        ...state,
+        orderList: action.payload,
       };
     case "categories/fetchByIdSuccess":
       return {
@@ -54,11 +60,14 @@ const rootReducer = (state = initialState, action) => {
         cartItems: state.cartItems.filter((item) => item.id !== action.payload),
       };
     case "token/addSuccess":
-        return {
-          ...state,
-          tokenMidtrans: action.payload,
-          cartItems: []
-        }
+      return {
+        ...state,
+        tokenMidtrans: action.payload,
+      };
+    case "cart/clearCart":
+      return {
+        cartItems: [],
+      };
     default:
       return state;
   }

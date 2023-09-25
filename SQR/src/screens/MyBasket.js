@@ -12,7 +12,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { checkoutBasket } from "../stores/action";
+import { checkoutBasket, clearCart } from "../stores/action";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const MyBasketScreen = ({ navigation }) => {
@@ -27,17 +27,16 @@ const MyBasketScreen = ({ navigation }) => {
   };
   const cartItems = useSelector((state) => state.cartItems);
   const basket = useSelector((state) => state.basket);
-  const totalAmount = basket.reduce((total, item) => {
-    return total + item.price;
-  }, 0);
+  const totalAmount = basket
+    ? basket.reduce((total, item) => total + item.price, 0)
+    : 0;
 
   const handleCheckout = () => {
     dispatch(checkoutBasket(cartItems));
+    dispatch(clearCart());
   };
 
   useEffect(() => {
-    // dispatch(fetchHabit())
-
     setTimeout(async () => {
       let usertoken;
       try {
@@ -46,10 +45,9 @@ const MyBasketScreen = ({ navigation }) => {
         console.log(error);
       }
 
-      if(!usertoken){
-        navigation.navigate("Login")
+      if (!usertoken) {
+        navigation.navigate("Login");
       }
-      // console.log(usertoken);
       setIsLoading(false);
     }, 3000);
   }, []);
@@ -69,21 +67,29 @@ const MyBasketScreen = ({ navigation }) => {
             </View>
           </View>
           <ScrollView style={styles.content}>
-            {basket.map((item, index) => (
-              <View key={index} style={styles.itemContainer}>
-                <Image
-                  source={{ uri: item.imageUrl }}
-                  style={styles.itemImage}
-                />
-                <View style={styles.itemDetails}>
-                  <Text style={styles.itemName}>{item.name}</Text>
-                  <Text style={styles.itemQuantity}>An: {item.onBehalfOf}</Text>
+            {cartItems && cartItems.length > 0 ? (
+              basket.map((item, index) => (
+                <View key={index} style={styles.itemContainer}>
+                  <Image
+                    source={{ uri: item.imageUrl }}
+                    style={styles.itemImage}
+                  />
+                  <View style={styles.itemDetails}>
+                    <Text style={styles.itemName}>{item.name}</Text>
+                    <Text style={styles.itemQuantity}>
+                      An: {item.onBehalfOf}
+                    </Text>
+                  </View>
+                  <View style={styles.itemPrice}>
+                    <Text style={styles.itemPriceText}>
+                      {rupiah(item.price)}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.itemPrice}>
-                  <Text style={styles.itemPriceText}>{rupiah(item.price)}</Text>
-                </View>
-              </View>
-            ))}
+              ))
+            ) : (
+              <Text>Your basket is empty.</Text>
+            )}
           </ScrollView>
         </SafeAreaView>
       </SafeAreaProvider>

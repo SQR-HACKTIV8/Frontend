@@ -11,6 +11,11 @@ import {
 import { rupiah } from "../hooks/rupiahConvert";
 export default function RecommendedCard({ qurbans }) {
   const navigation = useNavigation();
+
+  if (!qurbans || qurbans.length === 0) {
+    return <Text>No recommended qurbans available.</Text>;
+  }
+  
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
