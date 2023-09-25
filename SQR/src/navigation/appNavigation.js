@@ -12,6 +12,7 @@ import MyBasket from "../screens/MyBasket";
 import Notifikasi from "../screens/Notifikasi";
 import OrderComplate from "../screens/OrderComplate";
 import Midtrans from "../screens/Midtrans";
+import ProfilePage from "../screens/Profile";
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
@@ -29,6 +30,7 @@ const AppNavigation = () => {
         <Stack.Screen name="Notifikasi" component={Notifikasi} />
         <Stack.Screen name="OrderComplate" component={OrderComplate} />
         <Stack.Screen name="Midtrans" component={Midtrans} />
+        <Stack.Screen name="Profile" component={ProfilePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
