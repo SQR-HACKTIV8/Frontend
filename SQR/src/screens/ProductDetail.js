@@ -18,6 +18,8 @@ import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import DropdownSelect from "react-native-input-select";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { rupiah } from "../hooks/rupiahConvert";
+import * as SecureStore from "expo-secure-store";
 
 export default function ProductDetail({ route, navigation }) {
   const isFocused = useIsFocused();
@@ -30,9 +32,19 @@ export default function ProductDetail({ route, navigation }) {
   const oneQurban = useSelector((state) => {
     return state.oneQurban;
   });
+  const getToken = async () => {
+    try {
+      const access_token = await SecureStore.getItemAsync("access_token");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleVc = () => {
+    navigation.navigate("VideoCall");
+  };
   const videoUrl = oneQurban?.videoUrl || "";
   const videoId = videoUrl.split("/").pop();
-
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
   };
@@ -114,14 +126,16 @@ export default function ProductDetail({ route, navigation }) {
                   paddingTop: 10,
                 }}
               >
-                <TouchableOpacity onPress={handleBack}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                   <FontAwesome
                     name={"arrow-circle-left"}
                     size={28}
                     color="black"
                   />
                 </TouchableOpacity>
-                <FontAwesome name={"heart-o"} size={26} color="black" />
+                  <TouchableOpacity onPress={() => handleVc()}>
+                    <FontAwesome name="phone" size={28} color="black" />
+                  </TouchableOpacity>
               </View>
 
               {/* Product Details */}
@@ -171,7 +185,7 @@ export default function ProductDetail({ route, navigation }) {
                     marginTop: 0,
                   }}
                 >
-                  Rp. {oneQurban.price}/{oneQurban.weight}
+                  {rupiah(oneQurban.price)}/{oneQurban.weight}
                 </Text>
 
                 {/* Description */}
@@ -208,7 +222,13 @@ export default function ProductDetail({ route, navigation }) {
                 </View>
 
                 {/* YouTube Video */}
-                <View style={{ marginTop: 16, borderRadius: 10, overflow: 'hidden' }}>
+                <View
+                  style={{
+                    marginTop: 16,
+                    borderRadius: 10,
+                    overflow: "hidden",
+                  }}
+                >
                   {isFocused ? (
                     <YoutubePlayer
                       height={300}
@@ -225,6 +245,7 @@ export default function ProductDetail({ route, navigation }) {
                       borderWidth: 1,
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      marginTop: -60,
                       marginBottom: 10,
                     }}
                     placeholder="Atas Nama"
@@ -281,18 +302,23 @@ export default function ProductDetail({ route, navigation }) {
               {/* Add to Basket Button */}
               <TouchableOpacity
                 onPress={() => {
-                  handleBasketDetail({
-                    name: oneQurban.name,
-                    price: oneQurban.price,
-                    imageUrl: oneQurban.imageUrl1,
-                    onBehalfOf: onBehalfOf,
-                  });
-                  handleAddToCart({
-                    QurbanId: oneQurban.id,
-                    onBehalfOf: onBehalfOf,
-                    treeType: selectedOption,
-                  });
-                  navigation.navigate("Home");
+                  if (oneQurban) {
+                    const basketDetail = {
+                      name: oneQurban.name || "Default Name",
+                      price: oneQurban.price || 0,
+                      imageUrl: oneQurban.imageUrl1 || "",
+                      onBehalfOf: onBehalfOf || "",
+                    };
+                    const cartItem = {
+                      QurbanId: oneQurban.id || 0,
+                      onBehalfOf: onBehalfOf || "",
+                      treeType: selectedOption || "Default Tree Type",
+                    };
+
+                    handleBasketDetail(basketDetail);
+                    handleAddToCart(cartItem);
+                    navigation.navigate("Home");
+                  }
                 }}
                 style={{
                   backgroundColor: colors.COLOR_PRIMARY,

@@ -15,34 +15,57 @@ export default function RecommendedCard({ qurbans }) {
   if (!qurbans || qurbans.length === 0) {
     return <Text>No recommended qurbans available.</Text>;
   }
-  
+
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: "row", overflow: "hidden" }}>
           {qurbans.map((e, i) => (
+            // <Pressable
+            //   key={i}
+            //   style={styles.cardContainer}
+            //   onPress={() =>
+            //     navigation.navigate("ProductDetail", { qurbanId: e.id })
+            //   }
+            // >
+            //   <Image
+            //     source={{
+            //       uri: `${e.imageUrl1}`,
+            //     }}
+            //     style={styles.bannerHome}
+            //   />
+            //   <View style={styles.textContainer}>
+            //     <Text style={styles.cardText} numberOfLines={1}>
+            //       {e.name}
+            //     </Text>
+            //     <Text style={styles.descriptionText} numberOfLines={2}>
+            //       {e.description}
+            //     </Text>
+            //     <Text style={styles.priceText}>
+            //       {rupiah(e.price)} / {e.weight}
+            //     </Text>
+            //   </View>
+            // </Pressable>
             <Pressable
-              key={i}
-              style={styles.cardContainer}
               onPress={() =>
                 navigation.navigate("ProductDetail", { qurbanId: e.id })
               }
+              key={i}
+              style={[styles.cardContainer, { width: 170, margin: 5 }]}
             >
               <Image
-                source={{
-                  uri: `${e.imageUrl1}`,
-                }}
-                style={styles.bannerHome}
+                source={{ uri: e.imageUrl1 }}
+                style={styles.bannerHomeLarge}
               />
-              <View style={styles.textContainer}>
+              <View style={{ padding: 3, alignes: "center" }}>
                 <Text style={styles.cardText} numberOfLines={1}>
                   {e.name}
                 </Text>
-                <Text style={styles.descriptionText} numberOfLines={2}>
+                <Text style={styles.descriptionText} numberOfLines={1}>
                   {e.description}
                 </Text>
-                <Text style={styles.priceText}>
-                  {rupiah(e.price)} / {e.weight}
+                <Text style={styles.cardText}>
+                  {rupiah(e.price)}/ {e.weight}
                 </Text>
               </View>
             </Pressable>
@@ -54,33 +77,33 @@ export default function RecommendedCard({ qurbans }) {
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    marginRight: 16,
+  scrollViewContainer: {
+    paddingVertical: 10,
   },
-
-  bannerHome: {
-    width: 150,
-    height: 150,
+  cardRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 15,
+  },
+  cardContainer: {
+    width: 100,
+    overflow: "hidden",
+    alignItems: "center",
     backgroundColor: "#fff",
-    marginTop: 10,
     borderRadius: 10,
     overflow: "hidden",
   },
-
-  textContainer: {
-    padding: 5,
-    width: 150,
+  bannerHomeLarge: {
+    width: "100%",
+    height: 150,
   },
-
   cardText: {
+    padding: 5,
     fontWeight: "bold",
+    fontSize: 12.5,
   },
-
   descriptionText: {
-    color: "#808080",
-  },
-
-  priceText: {
+    paddingHorizontal: 5,
     color: "#808080",
   },
 });

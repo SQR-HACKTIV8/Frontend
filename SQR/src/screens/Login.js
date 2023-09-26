@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 import { useDispatch } from "react-redux";
 import { loginData } from "../stores/action";
 
 export default function LoginScreen({ navigation }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [login, setLogin] = useState({ email: "", password: "" });
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const { email, password } = login;
 
     if (email && password) {
-      dispatch(loginData(login))
-      navigation.navigate("Home");
+      try {
+        await dispatch(loginData(login));
+        navigation.navigate("Home");
+      } catch (error) {
+        setError("Invalid email or password. Please try again.");
+      }
     } else {
-      alert("Please fill in both email and password fields.");
+      setError("Please fill in both email and password fields.");
     }
   };
 
@@ -43,6 +42,11 @@ export default function LoginScreen({ navigation }) {
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        {error !== "" && (
+          <Text style={{ color: "red", textAlign: "center", marginTop: 10 }}>
+            {error}
+          </Text>
+        )}
         <View style={{ padding: 30 }}>
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>
             What is your Email?
@@ -75,7 +79,6 @@ export default function LoginScreen({ navigation }) {
             }}
             onChangeText={(text) => onChangeLogin("password", text)}
           />
-
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30 }}>
           <TouchableOpacity
@@ -95,7 +98,9 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={{ paddingStart: 30, paddingEnd: 30, marginVertical: 20 }}>
-          <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}>
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
+          >
             Create an account?{" "}
             <Text
               onPress={() => navigation.navigate("Register")}

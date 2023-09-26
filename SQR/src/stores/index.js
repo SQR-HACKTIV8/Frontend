@@ -9,7 +9,9 @@ const initialState = {
   cartItems: [],
   basket: [],
   orderList: [],
+  orderDetail: {},
   tokenMidtrans: "",
+  notification: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -23,6 +25,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         orderList: action.payload,
+      };
+    case "orderList/fetchOneSuccess":
+      return {
+        ...state,
+        orderDetail: action.payload,
       };
     case "categories/fetchByIdSuccess":
       return {
@@ -67,6 +74,12 @@ const rootReducer = (state = initialState, action) => {
     case "cart/clearCart":
       return {
         cartItems: [],
+        basket: [],
+      };
+    case "notification/successFetch":
+      return {
+        ...state,
+        notification: action.payload
       };
     default:
       return state;
