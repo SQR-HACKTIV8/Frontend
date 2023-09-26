@@ -6,23 +6,29 @@ import {
   Image,
   StyleSheet,
   Pressable,
-  FlatList,
+  ScrollView,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../assets/assests";
 import { FontAwesome } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-community/async-storage";
+import * as SecureStore from "expo-secure-store";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrderList } from "../stores/action";
+import { fetchOneOrderList, fetchOrderList } from "../stores/action";
 import dateFormat from "../hooks/dateFormat";
+import { useNavigation } from "@react-navigation/native";
+import { rupiah } from "../hooks/rupiahConvert";
 
-const ProfilePage = ({ navigation }) => {
+const ProfilePage = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const orderList = useSelector((state) => {
     return state.orderList;
   });
 
-  console.log(orderList, "di page");
+  function isValidUrl(string) {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return urlPattern.test(string);
+  }
 
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState({
@@ -35,14 +41,12 @@ const ProfilePage = ({ navigation }) => {
 
   const handleLogout = async () => {
     try {
-      await AsyncStorage.multiRemove([
-        "access_token",
-        "username",
-        "userId",
-        "phoneNumber",
-        "imageUrl",
-        "email",
-      ]);
+      await SecureStore.deleteItemAsync("access_token");
+      await SecureStore.deleteItemAsync("username");
+      await SecureStore.deleteItemAsync("userId");
+      await SecureStore.deleteItemAsync("phoneNumber");
+      await SecureStore.deleteItemAsync("imageUrl");
+      await SecureStore.deleteItemAsync("email");
       navigation.navigate("Login");
     } catch (error) {
       console.log(error);
@@ -53,12 +57,12 @@ const ProfilePage = ({ navigation }) => {
     setTimeout(async () => {
       let usertoken;
       try {
-        usertoken = await AsyncStorage.getItem("access_token");
-        const username = await AsyncStorage.getItem("username");
-        const userId = await AsyncStorage.getItem("userId");
-        const phoneNumber = await AsyncStorage.getItem("phoneNumber");
-        const imageUrl = await AsyncStorage.getItem("imageUrl");
-        const email = await AsyncStorage.getItem("email");
+        usertoken = await SecureStore.getItemAsync("access_token");
+        const username = await SecureStore.getItemAsync("username");
+        const userId = await SecureStore.getItemAsync("userId");
+        const phoneNumber = await SecureStore.getItemAsync("phoneNumber");
+        const imageUrl = await SecureStore.getItemAsync("imageUrl");
+        const email = await SecureStore.getItemAsync("email");
 
         setUserData({
           username,
@@ -83,55 +87,61 @@ const ProfilePage = ({ navigation }) => {
     <>
       <SafeAreaProvider style={styles.container}>
         <SafeAreaView style={styles.container}>
-          <View style={styles.header}>
-            <Pressable onPress={() => navigation.goBack()}>
-              <FontAwesome name={"arrow-circle-left"} size={28} color="white" />
-            </Pressable>
-            <View style={{ flex: 1, justifyContent: "center" }}>
-              <Text style={[styles.headerText, { textAlign: "center" }]}>
-                Profile
-              </Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.profileInfo}>
+              <Image
+                source={{
+                  uri: isValidUrl(userData?.imageUrl)
+                    ? userData.imageUrl
+                    : "https://i.ibb.co/K0tTRpf/user.png",
+                }}
+                style={styles.profileImage}
+              />
+              <View style={styles.profileDetails}>
+                <Text style={styles.username}>
+                  {userData?.username || "Nama Pengguna"}
+                </Text>
+                <Text style={styles.email}>
+                  {userData?.email || "email@example.com"}
+                </Text>
+                <TouchableOpacity
+                  style={styles.logoutButton}
+                  onPress={handleLogout}
+                >
+                  <Text style={styles.logoutButtonText}>Logout</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-          <View style={styles.profileInfo}>
-            <Image
-              source={{
-                uri:
-                  userData.imageUrl ||
-                  "https://i.ibb.co/nwp5jr0/logo-tanpa-text.png",
-              }}
-              style={styles.profileImage}
-            />
-            <View style={styles.profileDetails}>
-              <Text style={styles.username}>
-                {userData.username || "Nama Pengguna"}
-              </Text>
-              <Text style={styles.email}>
-                {userData.email || "email@example.com"}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.orderListContainer}>
-            <Text style={styles.orderListHeader}>Daftar Pesanan</Text>
-            <FlatList
-              data={orderList}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.orderItem}>
-                  <Text style={styles.orderNumber}>Order #{item.OrderId}</Text>
-                  <Text style={styles.orderDate}>
-                    Tanggal: {dateFormat(item.updatedAt)}
-                  </Text>
-                  <Text style={styles.orderAmount}>
-                    Total: Rp{item.totalPrice}
-                  </Text>
-                </View>
+            <View style={styles.orderListContainer}>
+              <Text style={styles.orderListHeader}>Daftar Pesanan</Text>
+
+              {orderList?.length > 0 ? (
+                orderList.map((item) => (
+                  <Pressable
+                    key={item.id}
+                    style={styles.orderItem}
+                    onPress={() =>
+                      navigation.navigate("OrderDetail", {
+                        orderId: item.id,
+                      })
+                    }
+                  >
+                    <Text style={styles.orderNumber}>Order {item?.OrderId}</Text>
+                    <Text style={styles.orderDate}>
+                      Tanggal: {dateFormat(item?.updatedAt)}
+                    </Text>
+                    <Text style={styles.orderAmount}>
+                      Total: {rupiah(item?.totalPrice)}
+                    </Text>
+                  </Pressable>
+                ))
+              ) : (
+                <Text style={styles.noOrdersText}>
+                  Tidak ada pesanan yang tersedia.
+                </Text>
               )}
-            />
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Text style={styles.logoutButtonText}>Logout</Text>
-          </TouchableOpacity>
-          </View>
+            </View>
+          </ScrollView>
         </SafeAreaView>
       </SafeAreaProvider>
     </>
@@ -141,12 +151,11 @@ const ProfilePage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.COLOR_PRIMARY,
+    padding: 10,
   },
   header: {
     flexDirection: "row",
     marginTop: 20,
-    backgroundColor: colors.COLOR_PRIMARY,
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
@@ -162,8 +171,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingVertical: 20,
     paddingHorizontal: 20,
+    borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
   profileImage: {
     width: 100,
@@ -183,16 +202,16 @@ const styles = StyleSheet.create({
     color: "#808080",
   },
   logoutButton: {
-    backgroundColor: "red",
+    backgroundColor: "#B22222",
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: "center",
     marginTop: 20,
-    marginHorizontal: 20,
+    width: "50%",
   },
   logoutButtonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: "bold",
   },
   orderListContainer: {
@@ -213,6 +232,7 @@ const styles = StyleSheet.create({
   orderNumber: {
     fontSize: 18,
     fontWeight: "bold",
+    color: colors.COLOR_PRIMARY,
   },
   orderDate: {
     fontSize: 16,
@@ -221,7 +241,14 @@ const styles = StyleSheet.create({
   orderAmount: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#007BFF",
+    // color: colors.COLOR_PRIMARY,
+  },
+  noOrdersText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#808080",
+    textAlign: "center",
+    marginTop: 20,
   },
 });
 

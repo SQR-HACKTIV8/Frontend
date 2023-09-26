@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   cardContainer: {
+    width: 100,
     overflow: "hidden",
     alignItems: "center",
     backgroundColor: "#fff",
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
   },
   cardText: {
     padding: 5,
-    fontSize: 12,
     fontWeight: "bold",
+    fontSize: 12.5
   },
   descriptionText: {
     paddingHorizontal: 5,

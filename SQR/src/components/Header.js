@@ -23,7 +23,7 @@ export default function Header() {
         }}
       >
         <Pressable
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("Notification")}
           style={{ marginRight: 12 }}
         >
           <FontAwesome name="bell-o" size={28} color="black" />

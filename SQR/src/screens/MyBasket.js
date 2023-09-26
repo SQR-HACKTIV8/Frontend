@@ -13,7 +13,7 @@ import { colors } from "../assets/assests";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { checkoutBasket, clearCart } from "../stores/action";
-import AsyncStorage from "@react-native-community/async-storage";
+import * as SecureStore from 'expo-secure-store';
 
 const MyBasketScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ const MyBasketScreen = ({ navigation }) => {
   const totalAmount = basket
     ? basket.reduce((total, item) => total + item.price, 0)
     : 0;
-
+  console.log(basket)
   const handleCheckout = () => {
     dispatch(checkoutBasket(cartItems));
     dispatch(clearCart());
@@ -40,7 +40,7 @@ const MyBasketScreen = ({ navigation }) => {
     setTimeout(async () => {
       let usertoken;
       try {
-        usertoken = await AsyncStorage.getItem("access_token");
+        usertoken = await SecureStore.getItemAsync("access_token");
       } catch (error) {
         console.log(error);
       }
@@ -88,7 +88,7 @@ const MyBasketScreen = ({ navigation }) => {
                 </View>
               ))
             ) : (
-              <Text>Your basket is empty.</Text>
+              <Text style={{textAlign: "center", justifyContent: "center", alignItems:"center"}}>Your basket is empty.</Text>
             )}
           </ScrollView>
         </SafeAreaView>
@@ -197,14 +197,14 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     color: "black",
   },
   checkoutButton: {
     backgroundColor: colors.COLOR_PRIMARY,
     paddingHorizontal: 20,
     paddingVertical: 18,
-    width: 200,
+    width: 180,
     borderRadius: 10,
   },
   checkoutButtonText: {

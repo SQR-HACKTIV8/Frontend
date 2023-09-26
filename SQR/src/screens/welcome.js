@@ -22,8 +22,9 @@ export default function WelcomeScreen({ navigation }) {
           backgroundColor: "#fff",
           flex: 1,
           marginTop: 0,
-          alignItems: "start",
+          alignItems: "center", // Pusatkan konten secara horizontal
           paddingHorizontal: 16,
+          justifyContent: "center", // Pusatkan konten secara vertikal
         }}
       >
         <View
@@ -35,8 +36,10 @@ export default function WelcomeScreen({ navigation }) {
           }}
         ></View>
 
-        <Text style={{ marginTop: 50, fontSize: 22, fontWeight: "bold" }}>Make people and nature smile</Text>
-        <Text style={{ marginTop: 20, fontSize: 20 }}>
+        <Text style={{ textAlign: "center", marginTop: -40, fontSize: 22, fontWeight: "bold" }}>
+          Make people and nature smile
+        </Text>
+        <Text style={{ textAlign: "center", marginTop: 20, fontSize: 20 }}>
           Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam. Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam.
         </Text>
 

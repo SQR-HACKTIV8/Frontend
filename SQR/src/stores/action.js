@@ -1,6 +1,6 @@
-const BASE_URL = "https://2ad5-103-156-165-21.ngrok-free.app/";
+const BASE_URL = "https://9398-123-253-233-150.ngrok-free.app/";
 import axios from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 export const fetchCategory = () => {
   return async (dispatch) => {
@@ -70,6 +70,36 @@ export const fetchOneQurban = (id) => {
   };
 };
 
+export const fetchNotif = () => {
+  return async (dispatch) => {
+    try {
+      // console.log("masuk kesini");
+      const response = await axios({
+        url: BASE_URL + "notifications",
+        method: "get",
+        headers: {
+          access_token: await SecureStore.getItemAsync("access_token"),
+        },
+      });
+      // console.log("lewat axios")
+      if (response.status !== 200) {
+        throw new Error("Fetch Failed");
+      }
+
+      const data = response.data;
+      // console.log(data)
+      const action = {
+        type: "notification/successFetch",
+        payload: data,
+      };
+      // console.log(data , " di action")
+      dispatch(action);
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
 export const fetchQurbanByType = (filter) => {
   return async (dispatch) => {
     try {
@@ -92,16 +122,16 @@ export const fetchQurbanByType = (filter) => {
 
 export const checkoutBasket = (input) => {
   return async (dispatch) => {
+    console.log(input, "ini di dalem action");
     try {
       const response = await axios({
         url: BASE_URL + "orders",
         method: "post",
         data: input,
         headers: {
-          access_token: await AsyncStorage.getItem("access_token"),
+          access_token: await SecureStore.getItemAsync("access_token"),
         },
       });
-      console.log(response.data);
       const result = await axios({
         url: BASE_URL + "token-midtrans",
         method: "post",
@@ -110,16 +140,19 @@ export const checkoutBasket = (input) => {
           totalPrice: response.data.findNewOrder.totalPrice,
         },
         headers: {
-          access_token: await AsyncStorage.getItem("access_token"),
+          access_token: await SecureStore.getItemAsync("access_token"),
         },
       });
+      console.log(result.data);
       const action = {
         type: "token/addSuccess",
         payload: result.data.redirect_url,
       };
       dispatch(action);
+      dispatch(fetchQurbans());
+      dispatch(fetchOrderList());
     } catch (error) {
-      throw error;
+      console.log(error.response.data.message);
     }
   };
 };
@@ -154,18 +187,30 @@ export const loginData = (input) => {
         method: "post",
         data: input,
       });
-      await AsyncStorage.setItem("access_token", response.data.access_token);
-      await AsyncStorage.setItem("username", response.data.customer.username);
-      await AsyncStorage.setItem("userId", String(response.data.customer.id));
-      await AsyncStorage.setItem(
+      await SecureStore.setItemAsync(
+        "access_token",
+        response.data.access_token
+      );
+      await SecureStore.setItemAsync(
+        "username",
+        response.data.customer.username
+      );
+      await SecureStore.setItemAsync(
+        "userId",
+        String(response.data.customer.id)
+      );
+      await SecureStore.setItemAsync(
         "phoneNumber",
         response.data.customer.phoneNumber
       );
-      await AsyncStorage.setItem("imageUrl", response.data.customer.imageUrl);
-      await AsyncStorage.setItem("email", response.data.customer.email);
+      await SecureStore.setItemAsync(
+        "imageUrl",
+        response.data.customer.imageUrl
+      );
+      await SecureStore.setItemAsync("email", response.data.customer.email);
       console.log(response.data);
     } catch (error) {
-      console.log(error.response.data.message);
+      throw error.response.data.message;
     }
   };
 };
@@ -178,8 +223,8 @@ export const fetchOrderList = (input) => {
         url: BASE_URL + "orders",
         method: "get",
         headers: {
-          access_token: input
-        }
+          access_token: await SecureStore.getItemAsync("access_token"),
+        },
       });
       // console.log("lewat axios")
       if (response.status !== 200) {
@@ -191,7 +236,36 @@ export const fetchOrderList = (input) => {
         type: "orderList/fetchSuccess",
         payload: data,
       };
-      console.log(data)
+      console.log(data);
+      dispatch(action);
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+export const fetchOneOrderList = (id) => {
+  return async (dispatch) => {
+    try {
+      const access_token = await SecureStore.getItemAsync("access_token");
+      // console.log("masuk kesini");
+      const response = await axios({
+        url: BASE_URL + "orders/" + id,
+        method: "get",
+        headers: {
+          access_token: access_token,
+        },
+      });
+      // console.log("lewat axios")
+      if (response.status !== 200) {
+        throw new Error("Fetch Failed");
+      }
+
+      const data = response.data;
+      const action = {
+        type: "orderList/fetchOneSuccess",
+        payload: data,
+      };
       dispatch(action);
     } catch (error) {
       throw error;

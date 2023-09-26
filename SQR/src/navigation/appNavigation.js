@@ -13,6 +13,10 @@ import Notifikasi from "../screens/Notifikasi";
 import OrderComplate from "../screens/OrderComplate";
 import Midtrans from "../screens/Midtrans";
 import ProfilePage from "../screens/Profile";
+import videoCall from "../screens/VideoCall";
+import VideoCall from "../screens/VideoCall";
+import OrderDetail from "../screens/OrderDetail";
+import Notification from "../screens/Notification";
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
@@ -27,10 +31,12 @@ const AppNavigation = () => {
         <Stack.Screen name="ProductList" component={ProductList} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Notifikasi" component={Notifikasi} />
+        <Stack.Screen name="Notification" component={Notification} />
         <Stack.Screen name="OrderComplate" component={OrderComplate} />
         <Stack.Screen name="Midtrans" component={Midtrans} />
         <Stack.Screen name="Profile" component={ProfilePage} />
+        <Stack.Screen name="VideoCall" component={VideoCall} />
+        <Stack.Screen name="OrderDetail" component={OrderDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
