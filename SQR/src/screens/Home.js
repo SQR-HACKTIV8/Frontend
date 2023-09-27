@@ -50,7 +50,7 @@ export default function Home({ navigation }) {
       }
       console.log(usertoken);
       setIsLoading(false);
-    }, 3000);
+    }, 200);
   }, []);
 
   useEffect(() => {

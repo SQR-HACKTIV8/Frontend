@@ -56,13 +56,14 @@ export default function ProductList({ navigation, route }) {
             flexDirection: "row",
             alignItems: "center",
             paddingHorizontal: 16,
+            marginTop: 10
           }}
         >
           <Pressable onPress={() => navigation.goBack()} style={{ flex: 1 }}>
             <FontAwesome name={"arrow-circle-left"} size={30} color="black" />
           </Pressable>
 
-          <View style={{ flex: 2, alignItems: "center" }}>
+          <View style={{ flex: 2, alignItems: "center", }}>
             <Text style={{ fontWeight: "bold", fontSize: 18 }}>
               {qurbansByType[0].Category.name}
             </Text>
@@ -70,9 +71,9 @@ export default function ProductList({ navigation, route }) {
 
           <Pressable
             onPress={() => navigation.goBack()}
-            style={{ flex: 1, alignItems: "flex-end" }}
+            style={{ flex: 1, alignItems: "flex-end", opacity:0 }}
           >
-            <FontAwesome name={"heart-o"} size={28} color="black" />
+            <FontAwesome name={"heart-o"} size={28} color="white" />
           </Pressable>
         </View>
 

@@ -78,7 +78,7 @@ export default function ProductDetail({ route, navigation }) {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 200);
     dispatch(fetchOneQurban(qurbanId));
   }, []);
 
@@ -133,9 +133,9 @@ export default function ProductDetail({ route, navigation }) {
                     color="black"
                   />
                 </TouchableOpacity>
-                  <TouchableOpacity onPress={() => handleVc()}>
-                    <FontAwesome name="phone" size={28} color="black" />
-                  </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleVc()}>
+                  <FontAwesome name="phone" size={28} color="black" />
+                </TouchableOpacity>
               </View>
 
               {/* Product Details */}
@@ -284,18 +284,20 @@ export default function ProductDetail({ route, navigation }) {
                       primaryColor={"green"}
                     />
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      textAlign: "left",
-                    }}
-                  >
-                    Reboisasi di hutan Bromo bertujuan utama untuk memulihkan
-                    ekosistem yang telah terganggu akibat aktivitas manusia dan
-                    perubahan iklim. Upaya ini juga bertujuan untuk mengurangi
-                    erosi tanah, mempertahankan keanekaragaman hayati, dan
-                    menjaga kualitas air
-                  </Text>
+                  <View style={{ flex: 1, alignItems: "start", paddingHorizontal: 3, marginTop: -10 }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        paddingHorizontal: 5,
+                        textAlign: "justify",
+                      }}
+                    >
+                      Kita perlu mengambil tindakan sekarang untuk menyelamatkan
+                      Hutan Bromo. Mari bersama-sama melakukan reboisasi untuk
+                      memulihkan keindahannya dan menjaga ekosistem yang
+                      berharga ini.
+                    </Text>
+                  </View>
                 </View>
               </View>
 
