@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, Pressable, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
 import { colors } from "../assets/assests";
@@ -13,7 +20,12 @@ export default function WelcomeScreen({ navigation }) {
             source={{
               uri: "https://i.ibb.co/9w9PfNv/OIG-removebg-preview.png",
             }}
-            style={{ width: 340, height: 340, alignItems: "center", marginTop: 50 }}
+            style={{
+              width: 340,
+              height: 340,
+              alignItems: "center",
+              marginTop: 50,
+            }}
           />
         </SafeAreaView>
       </SafeAreaProvider>
@@ -22,9 +34,9 @@ export default function WelcomeScreen({ navigation }) {
           backgroundColor: "#fff",
           flex: 1,
           marginTop: 0,
-          alignItems: "center", // Pusatkan konten secara horizontal
+          alignItems: "center",
           paddingHorizontal: 16,
-          justifyContent: "center", // Pusatkan konten secara vertikal
+          justifyContent: "center",
         }}
       >
         <View
@@ -36,11 +48,19 @@ export default function WelcomeScreen({ navigation }) {
           }}
         ></View>
 
-        <Text style={{ textAlign: "center", marginTop: -40, fontSize: 22, fontWeight: "bold" }}>
-          Make people and nature smile
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: -40,
+            fontSize: 22,
+            fontWeight: "bold",
+          }}
+        >
+          Satu Aplikasi, Dua Tujuan Mulia
         </Text>
-        <Text style={{ textAlign: "center", marginTop: 20, fontSize: 20 }}>
-          Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam. Lorem ipsum dolor sit amet consectetur. Aliquam volutpat eleifend habitasse consequat quam.
+        <Text style={{ textAlign: "center", marginTop: 20, fontSize: 18 }}>
+          Selamat datang di SQR, di mana kebaikan tumbuh dan bumi kita dijaga
+          bersama. Mari kita bersama-sama bergerak menuju dunia yang lebih baik.
         </Text>
 
         <TouchableOpacity
@@ -54,7 +74,9 @@ export default function WelcomeScreen({ navigation }) {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>Let's Go</Text>
+          <Text style={{ fontSize: 18, color: "#fff", fontWeight: "700" }}>
+            Let's Go
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

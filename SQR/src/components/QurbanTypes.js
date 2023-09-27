@@ -41,6 +41,18 @@ export default function QurbanType() {
             />
             <Text style={styles.cardText}>SAPI</Text>
           </Pressable>
+          <Pressable
+            style={styles.cardContainer}
+            onPress={() => navigation.navigate("ProductList", { category: 3 })}
+          >
+            <Image
+              source={{
+                uri: `https://i.ibb.co/brbx863/png-transparent-cartoon-sheep-sheep-head-smile-cartoon-line-art-cowgoat-family-removebg-preview.pngn`,
+              }}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardText}>DOMBA</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </View>

@@ -198,16 +198,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   email: {
-    fontSize: 18,
+    fontSize: 14,
     color: "#808080",
   },
   logoutButton: {
-    backgroundColor: "#B22222",
+    backgroundColor: "#b23b3b",
     borderRadius: 8,
-    paddingVertical: 12,
+    paddingVertical: 8,
     alignItems: "center",
-    marginTop: 20,
-    width: "50%",
+    marginTop: 10,
+    width: "35%",
+    opacity: 0.9
   },
   logoutButtonText: {
     color: "white",
