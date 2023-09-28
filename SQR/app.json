@@ -32,6 +32,12 @@
         "projectId": "ca5c2295-affa-4055-a000-2df246096ad1"
       }
     },
-    "owner": "ninoambara"
+    "owner": "ninoambara",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ca5c2295-affa-4055-a000-2df246096ad1"
+    }
   }
 }

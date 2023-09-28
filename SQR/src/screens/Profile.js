@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   email: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#808080",
   },
   logoutButton: {

@@ -1,4 +1,4 @@
-const BASE_URL = "https://9fe2-123-253-233-150.ngrok-free.app/";
+const BASE_URL = "https://688d-123-253-233-150.ngrok-free.app/";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
